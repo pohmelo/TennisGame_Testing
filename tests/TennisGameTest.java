@@ -20,7 +20,7 @@ public class TennisGameTest {
 // "player2 has advantage"
 // "player1 wins"
 // "player2 wins"
-	@Ignore
+	@Test
 	public void testTennisGame_Start() {
 		//Arrange
 		TennisGame game = new TennisGame();
@@ -63,5 +63,117 @@ public class TennisGameTest {
 		//Act
 		// This statement should cause an exception
 		game.player1Scored();			
-	}		
+	}
+	
+	@Test
+	public void testTennisGame_P1_40_P2_0() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();	
+		//Act
+		String score = game.getScore() ;
+		// Assert
+		assertEquals(" ", "40 - love", score);		
+	}
+	
+	@Test
+	public void testTennisGame_P1_wins_P2_0() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();	
+		game.player1Scored();
+		//Act
+		String score = game.getScore() ;
+		// Assert
+		assertEquals(" ", "player1 wins", score);		
+	}
+	
+	@Test
+	public void testTennisGame_P1_adv_P2_40() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		
+		game.player1Scored();
+		game.player1Scored();	
+		game.player2Scored();
+		game.player2Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player1Scored();
+		//Act
+		String score = game.getScore() ;
+		// Assert
+		assertEquals(" ", "player1 has advantage", score);		
+	}
+	
+	@Test
+	public void testTennisGame_deuceAfterAdvantage() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();	
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player1Scored();
+		game.player2Scored();
+		//Act
+		String score = game.getScore();
+		// Assert
+		assertEquals(" ", "deuce", score);
+	}
+	
+	@Test
+	public void testTennisGame_P1_40_P2_adv() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		
+		game.player2Scored();
+		game.player2Scored();	
+		game.player1Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player1Scored();
+		game.player2Scored();
+		//Act
+		String score = game.getScore();
+		// Assert
+		assertEquals(" ", "player2 has advantage", score);
+	}
+	
+	@Test
+	public void testTennisGame_P2WinsAfterDeuce() throws TennisGameException {
+		//Arrange
+		TennisGame game = new TennisGame();
+		
+		game.player1Scored();
+		game.player1Scored();
+		game.player1Scored();	
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player1Scored();
+		game.player2Scored();
+		game.player2Scored();
+		game.player2Scored();
+		//Act
+		String score = game.getScore();
+		// Assert
+		assertEquals(" ", "player2 wins", score);
+	}
+	
+	
+	
 }
